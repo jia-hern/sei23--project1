@@ -19,7 +19,8 @@ let repository = [
 	}
 ];
 
-let gridSelectorLeft = document.querySelector('.teddy_left_grid'); //although its in other classes, no need to go in them first
+let gridSelectorLeft = document.querySelector('.teddy_left_grid');
+let gridSelectorRight = document.querySelector('.teddy_right_grid'); //although its in other classes, no need to go in them first
 
 for (let index = 0; index < 3; index++) {
 	//3 as its a 3v3 teddies game
@@ -44,7 +45,7 @@ for (let index = 0; index < 3; index++) {
 	hp.innerHTML = '&nbsp HP&nbsp;';
 	hpValue.textContent = '-';
 	teddy.setAttribute('class', element.type);
-
+	teddy.setAttribute('id', index);
 	//class adding part
 	teddy.classList.add('teddy');
 	statsHolder.classList.add('statsHolder');
@@ -65,10 +66,55 @@ for (let index = 0; index < 3; index++) {
 	teddy.appendChild(statsHolder);
 	// console.log(teddy);
 	gridSelectorLeft.appendChild(teddy);
-
 	//find in the repository array the element which matches the ID
 	// let item = repository.find((element) => element.id == currentId);
 	//so roll 0,1,2 and use that id to select the type
+}
+for (let index = 0; index < 3; index++) {
+	//3 as its a 3v3 teddies game
+	const element = repository[index];
+
+	// create div for each unit of teddy
+	let teddy = document.createElement('div');
+	// in each teddy class, have pic, name, atk, atk stats and hp, hp stats
+	let statsHolder = document.createElement('div');
+	let teddyImage = document.createElement('img');
+	let h3 = document.createElement('h3');
+	let atk = document.createElement('p');
+	let atkValue = document.createElement('span');
+	let hp = document.createElement('p');
+	let hpValue = document.createElement('span');
+
+	//Putting content into each tag
+	teddyImage.setAttribute('src', element.images);
+	h3.textContent = element.name;
+	atk.innerHTML = 'ATK&nbsp;';
+	atkValue.textContent = '-';
+	hp.innerHTML = '&nbsp HP&nbsp;';
+	hpValue.textContent = '-';
+	teddy.setAttribute('class', element.type);
+	teddy.setAttribute('id', index);
+	//class adding part
+	teddy.classList.add('teddy');
+	statsHolder.classList.add('statsHolder');
+	teddyImage.classList.add('img-responsive');
+	atk.classList.add('atk');
+	hp.classList.add('hp');
+	atkValue.classList.add('atkValue');
+	hpValue.classList.add('hpValue');
+
+	//append list
+	statsHolder.appendChild(atk);
+	statsHolder.appendChild(atkValue);
+	statsHolder.appendChild(hp);
+	statsHolder.appendChild(hpValue);
+
+	teddy.appendChild(teddyImage);
+	teddy.appendChild(h3);
+	teddy.appendChild(statsHolder);
+	// console.log(teddy);
+
+	gridSelectorRight.appendChild(teddy);
 }
 /* 
     ROLL DICE 
