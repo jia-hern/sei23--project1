@@ -202,60 +202,46 @@ document.querySelector('.btn-pk').addEventListener('click', function() {
 	if (gamePlay) {
 		for (let index = 0; index < 3; index++) {
 			if (
-				document.getElementById('img-red-' + index).src != 'angel-teddy.jpg' &&
-				document.getElementById('img-blue-' + index).src != 'angel-teddy.jpg'
+				document.querySelector('#hp-blue-' + index).textContent > 0 &&
+				document.querySelector('#hp-red-' + index).textContent > 0
 			) {
+				// console.log('in right', document.getElementById('img-red-' + index).src);
+				// console.log('in left', document.getElementById('img-blue-' + index).src);
 				let hpBlue = parseInt(document.querySelector('#hp-blue-' + index).textContent);
 				let hpRed = parseInt(document.querySelector('#hp-red-' + index).textContent);
 				let atkBlue = parseInt(document.querySelector('#atk-blue-' + index).textContent);
 				let atkRed = parseInt(document.querySelector('#atk-red-' + index).textContent);
 				document.querySelector('#hp-red-' + index).textContent = hpRed - atkBlue;
 				document.querySelector('#hp-blue-' + index).textContent = hpBlue - atkRed;
-			}
-			if (
-				document.querySelector('#hp-blue-' + index).textContent <= 0 &&
-				document.getElementById('img-blue-' + index).src != 'angel-teddy.jpg'
-			) {
-				document.querySelector('#hp-blue-' + index).textContent = 0;
-				document.getElementById('img-blue-' + index).src = 'angel-teddy.jpg';
-				blueDead += 1;
-				// Swal.fire(`Player Blue won!`, 'success');
-			}
-			if (
-				document.querySelector('#hp-red-' + index).textContent <= 0 &&
-				document.getElementById('img-red-' + index).src != 'angel-teddy.jpg'
-			) {
-				document.querySelector('#hp-red-' + index).textContent = 0;
-				document.getElementById('img-red-' + index).src = 'angel-teddy.jpg';
-				redDead += 1;
-				// Swal.fire(`Player Red won!`, 'success');
+				if (document.querySelector('#hp-blue-' + index).textContent <= 0) {
+					document.getElementById('img-blue-' + index).src = 'angel-teddy.jpg';
+					document.querySelector('#hp-blue-' + index).textContent = 0;
+					blueDead += 1;
+					blueAlive -= blueDead;
+				}
+				if (document.querySelector('#hp-red-' + index).textContent <= 0) {
+					document.getElementById('img-red-' + index).src = 'angel-teddy.jpg';
+					document.querySelector('#hp-red-' + index).textContent = 0;
+					redDead += 1;
+					RedAlive -= redDead;
+				}
 			}
 		}
-		//after doing all the hp deduction to 0 and changing img, count number of alive on each side
-		// countBlue = 0;
-		// countRed = 0;
-		// for (let index = 0; index < 3; index++) {
-		// 	if (document.getElementById('img-blue-' + index).src != 'angel-teddy.jpg') {
-		// 		countBlue += 1;
-		// 		console.log(countBlue);
-		// 	}
-		// 	if (document.getElementById('img-red-' + index).src != 'angel-teddy.jpg') {
-		// 		countRed += 1;
-		// 		console.log(countRed);
-		// 	}
-		// }
-		blueAlive -= blueDead;
-		RedAlive -= redDead;
-		document.querySelector('#total-alive-0').textContent = blueAlive;
-		document.querySelector('#total-alive-1').textContent = RedAlive;
 	}
+
+	document.querySelector('#total-alive-0').textContent = blueAlive;
+	document.querySelector('#total-alive-1').textContent = RedAlive;
 });
 function changePlayer() {
 	if (currentColour == 'blue') {
 		currentColour = 'red';
+		document.getElementById('name-1').style.fontWeight = '700';
+		document.getElementById('name-0').style.fontWeight = '300';
 	} else {
 		currentColour = 'blue';
 		currentTurn += 1;
+		document.getElementById('name-1').style.fontWeight = '300';
+		document.getElementById('name-0').style.fontWeight = '700';
 	}
 }
 
